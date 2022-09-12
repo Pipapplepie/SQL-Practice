@@ -1,12 +1,16 @@
 task1
 
 1.1：
-![1.1](https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/111.png width="375")
+
+<img src="https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/111.png" width="500">
 
 1.2：
-![1.2.1](https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/1.21.png width="375")
 
-![1.2.2](https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/1.22.png width="375")
+<img src="https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/1.21.png" width="500">
+
+最终结果：
+
+<img src="https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/1.22.png" width="500">
 
 1.3:
 
