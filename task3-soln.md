@@ -105,3 +105,4 @@ Yes: 四则运算中含有 NULL 时（不进行特殊处理的情况下），运
 
 **3.6**
 
+**注意：** 在使用IN 和 NOT IN 时是无法选取出NULL数据的。NULL 只能使用 IS NULL 和 IS NOT NULL 来进行判断。
