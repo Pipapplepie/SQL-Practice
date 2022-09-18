@@ -97,6 +97,16 @@ SUBSTRING （str FROM int:position FOR int:length）,...
 
 **3. Time/Date functions:** CURRENT_DATE, CURRENT_TIME, CURRENT_TIMESTAMP --> (data time), EXTRACT(日期元素 FROM 日期)
 
+**4. 谓词 Like**  where <col_name> like ...
+
+"abc%": 返回以abc开头的字符串，如“abcd”
+
+"%abc"：返回以abc结尾的字符串，如“xxabc”；
+
+"%abc%"：返回中间含abc的字符串，如“xxabcyy”；
+
+“abc_”: 下划线为占位符，其使用位置同%，一条下划线对应一个字符。如"abc__" --> "abcde";
+
 ## Exercise
 
 **3.5**
@@ -105,7 +115,13 @@ Yes: 四则运算中含有 NULL 时（不进行特殊处理的情况下），运
 
 **3.6**
 
-**注意：** 在使用IN 和 NOT IN 时是无法选取出NULL数据的。NULL 只能使用 IS NULL 和 IS NOT NULL 来进行判断。
+**谓词 IN:** OR的简便用法：
+
+<img src='https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/3.61.png' width='400'>
+
+<img src='https://github.com/Pipapplepie/Solutions-to-Datawhale-SQL-Open-Source-Learnig---2022-9/blob/main/3.62.png' width='400'>
+
+**注意：** 在使用**谓词** IN 和 NOT IN 时是无法选取出NULL数据的。NULL 只能使用 **IS NULL** 和 **IS NOT NULL** 来进行判断。
 
 **3.7**
 
@@ -116,3 +132,4 @@ count(Case when sale_price between 1001 and 3000 then product_name else null end
 count(Case when sale_price >= 3001 then product_name else null end) as high_price
 from product;
 ```
+**注意：** **谓词BETWEEN** 的输出内容包含临界值，即闭区间。
