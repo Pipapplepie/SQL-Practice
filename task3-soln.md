@@ -73,6 +73,8 @@ from product as p1;
 
 **注意：** SQL会先运行“外层\母查询”的from statement, 然后是子查询的，所以应在子查询的where中建立关联。
 
+**3.5**
+
 # SQL的各种函数
 
 **1. Arithmetic functions:**
