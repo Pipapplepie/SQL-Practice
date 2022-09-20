@@ -253,10 +253,84 @@ SELECT  P1.product_id
  
 **注意：** 
 
-* SELF JOIN还可以求出两张表或子查询的公共部分，功能类似于INTERSECT；
+* NATURAL JOIN还可以求出两张表或子查询的公共部分，功能类似于INTERSECT；
 
 * 两个NULL值进行比较时，结果不为真，（需要用IS NULL谓词）所以最终返回的结果可能会有不希望的遗漏；
 
 
 ## OUTER JOIN
+
+左连结会保存左表中无法按照 ON 子句匹配到的行, 此时对应右表的行均为缺失值;
+
+右连结则会保存右表中无法按照 ON 子句匹配到的行, 此时对应左表的行均为缺失值;
+
+全外连结则会同时保存两个表中无法按照 ON子句匹配到的行, 相应的另一张表中的行用缺失值填充。
+
+```sql
+-- 左连结     
+FROM <tb_1> LEFT  OUTER JOIN <tb_2> ON <condition(s)>
+-- 右连结     
+FROM <tb_1> RIGHT OUTER JOIN <tb_2> ON <condition(s)>
+-- 全外连结
+FROM <tb_1> FULL  OUTER JOIN <tb_2> ON <condition(s)>
+```
+
+**注意：**
+* 由于连结时可以交换左表和右表的位置, 因此左连结和右连结并没有本质区别。
+* LEFT、RIGHT 可用来指定主表
+* 注意NULL值的处理，如：
+
+使用外连结从ShopProduct表和Product表中找出那些在某个商店库存少于50的商品及对应的商店.希望得到如下结果。
+
+```sql
+SELECT P.product_id
+       ,P.product_name
+       ,P.sale_price
+       ,SP.shop_id
+       ,SP.shop_name
+       ,SP.quantity
+  FROM Product AS P
+  LEFT OUTER JOIN ShopProduct AS SP
+    ON SP.product_id = P.product_id
+ WHERE quantity< 50
+ ```
+ 
+**观察结果**：少了在所有商店都无货的高压锅和圆珠笔。在WHERE过滤条件中增加 OR quantity IS NULL 的条件, 便可以得到预期的结果。
+
+**更干净、更直观的写法：**
+
+```sql
+SELECT P.product_id
+      ,P.product_name
+      ,P.sale_price
+       ,SP.shop_id
+      ,SP.shop_name
+      ,SP.quantity 
+  FROM Product AS P
+  LEFT OUTER JOIN-- 先筛选quantity<50的商品
+   (SELECT *
+      FROM ShopProduct
+     WHERE quantity < 50 ) AS SP
+    ON SP.product_id = P.product_id
+ ```
+ 
+ ### MySQL8.0 目前还不支持全外连结
+ 
+ 不过我们可以对左连结和右连结的结果进行 UNION 来实现全外连结。
+ 
+ ## 多表连结
+ 
+ ```sql
+ SELECT P.product_id
+       ,P.product_name
+       ,P.sale_price
+       ,SP.shop_id
+       ,SP.shop_name
+       ,IP.inventory_quantity
+  FROM Product AS P
+  LEFT OUTER JOIN ShopProduct AS SP
+ON SP.product_id = P.product_id
+LEFT OUTER JOIN InventoryProduct AS IP
+ON SP.product_id = IP.product_id
+```
 
