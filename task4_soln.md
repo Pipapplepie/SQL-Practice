@@ -404,11 +404,31 @@ union
 select product_id
 ,product_name
 ,sale_price
-from product
+from product2
 where sale_price >= 500
 ```
+
+![41](https://user-images.githubusercontent.com/107236740/191399370-2bc54a03-23e6-44ee-a2b2-d28461ceaf65.png)
 
 **remark:** 如果MySQL8.0支持full outer join, 这也是一种方法，否则要用两次outer join，比较麻烦。
 
 ## 4.2
+
+```sql
+select *
+from
+(select * from product
+union
+select * from product2) as u
+where product_id not in
+(select product_id
+from product
+where product_id not in (select product_id from product2)
+union
+select product_id
+from product2
+where product_id not in (select product_id from product))
+```
+
+![42](https://user-images.githubusercontent.com/107236740/191400029-cd6072a0-9025-48d8-80cd-3f7d72b656b6.png)
 
