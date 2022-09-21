@@ -432,3 +432,31 @@ where product_id not in (select product_id from product))
 
 ![42](https://user-images.githubusercontent.com/107236740/191400029-cd6072a0-9025-48d8-80cd-3f7d72b656b6.png)
 
+## 4.3
+
+```sql
+select sp.shop_id, 
+sp.shop_name,
+p.product_name,
+p.sale_price
+from shopproduct as sp
+inner join
+(select * from product
+union
+select * from product2) as p
+on sp.product_id = p.product_id,
+(select product_type
+, max(sale_price) as max_sale_price
+from 
+(select * from product
+union
+select * from product2) as all_p
+group by product_type) as m
+where p.product_type = m.product_type
+and 
+p.sale_price = m.max_sale_price
+```
+
+![43](https://user-images.githubusercontent.com/107236740/191407411-d967728a-6fdd-4d2d-a1bb-bc74cd92e051.png)
+
+## 4.4
