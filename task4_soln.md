@@ -390,7 +390,7 @@ SELECT SP.shop_id
  输出同 inner join ... on SP.product_id = P.product_id.
  
  # Exercises
- 
+
  
 ## 4.1
 
@@ -478,3 +478,24 @@ where p.sale_price = mp.max_sale_price
 ![44](https://user-images.githubusercontent.com/107236740/191409499-3e2d186f-6fc8-45ff-8d5d-1d26d588eb4d.png)
 
 ## 4.5
+
+```sql
+select product_id, product_name, sale_price, sum(p2_price) as cum
+from
+(select  p1.product_id, 
+p1.product_name, 
+p1.sale_price,
+p2.product_id as p2_id,
+p2.sale_price as p2_price
+from Product as p1 
+left outer join Product as p2
+on ((p1.sale_price > p2.sale_price)
+or (p1.sale_price = p2.sale_price 
+and p1.product_id <= p2.product_id))
+order by p1.sale_price,p1.product_id) as X
+
+group by product_id, product_name, sale_price
+order by sale_price,cum;
+```
+
+![45](https://user-images.githubusercontent.com/107236740/191416806-5be4bef5-f177-4769-88e7-efdee035cc78.png)
