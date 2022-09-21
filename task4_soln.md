@@ -389,4 +389,26 @@ SELECT SP.shop_id
  
  输出同 inner join ... on SP.product_id = P.product_id.
  
+ # Exercises
  
+ 
+## 4.1
+
+```sql
+select product_id
+,product_name
+,sale_price
+from product
+where sale_price >= 500
+union
+select product_id
+,product_name
+,sale_price
+from product
+where sale_price >= 500
+```
+
+**remark:** 如果MySQL8.0支持full outer join, 这也是一种方法，否则要用两次outer join，比较麻烦。
+
+## 4.2
+
