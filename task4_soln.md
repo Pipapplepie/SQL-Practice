@@ -460,3 +460,21 @@ p.sale_price = m.max_sale_price
 ![43](https://user-images.githubusercontent.com/107236740/191407411-d967728a-6fdd-4d2d-a1bb-bc74cd92e051.png)
 
 ## 4.4
+
+```sql
+select p.product_id,
+p.product_name,
+p.product_type,
+p.sale_price
+from product as p
+inner join
+(select product_type, max(sale_price) as max_sale_price
+from product
+group by product_type) as mp
+on p.product_type = mp.product_type
+where p.sale_price = mp.max_sale_price
+```
+
+![44](https://user-images.githubusercontent.com/107236740/191409499-3e2d186f-6fc8-45ff-8d5d-1d26d588eb4d.png)
+
+## 4.5
