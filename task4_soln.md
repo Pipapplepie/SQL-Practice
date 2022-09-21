@@ -334,3 +334,59 @@ LEFT OUTER JOIN InventoryProduct AS IP
 ON SP.product_id = IP.product_id
 ```
 
+## ON 子句进阶--非等值连结
+
+问题：希望对 Product 表中的商品按照售价赋予排名。
+
+```sql
+SELECT  product_id
+       ,product_name
+       ,sale_price
+       ,COUNT(p2_id) AS my_rank
+  FROM (--使用自左连结对每种商品找出价格不低于它的商品
+        SELECT P1.product_id
+               ,P1.product_name
+               ,P1.sale_price
+               ,P2.product_id AS P2_id
+               ,P2.product_name AS P2_name
+               ,P2.sale_price AS P2_price 
+          FROM Product AS P1 
+          LEFT OUTER JOIN Product AS P2 
+            ON P1.sale_price <= P2.sale_price 
+        ) AS X
+ GROUP BY product_id, product_name, sale_price
+ ORDER BY my_rank; 
+ ```
+ 
+* 中间X部分输出结果：
+ 
+![lala](https://user-images.githubusercontent.com/107236740/191394451-4d32d332-a953-4874-bed3-79461fb074e7.png)
+
+* GROUP BY 多个字段的理解：
+1. 将多个字段整体视作一个key; 
+
+2. 依次按照顺序分，先把第一个字段相同的划分为一组，再这些相同的字段中，再查找第二个字段相同的划分为一组...
+
+
+## 交叉连结 CROSS JOIN
+
+在连结去掉 ON 子句, 就是所谓的交叉连结(CROSS JOIN)。数据库表(或者子查询)的并,交和差都是在纵向上对表进行扩张或筛选限制等运算的, 这要求表的列数及对应位置的列的数据类型"相容", 因此这些运算并不会增加新的列, 而交叉连接(笛卡尔积)则是在**横向**上对表进行扩张, 即增加新的列, 这一点和连结的功能是一致的。但因为没有了ON子句的限制, **会对左表和右表的每一行进行组合**, 这经常会导致很多无意义的行出现在检索结果中. 当然, 在某些查询需求中, 交叉连结也有一些用处。
+
+<img src='https://www.mathstopia.net/wp-content/uploads/2021/01/catesain-product.jpg' width='450'>
+
+### 过时语法
+
+```sql
+SELECT SP.shop_id
+      ,SP.shop_name
+      ,SP.product_id
+       ,P.product_name
+       ,P.sale_price
+  FROM shopproduct AS SP
+ CROSS JOIN product AS P
+ WHERE SP.product_id = P.product_id;
+ ```
+ 
+ 输出同 inner join ... on SP.product_id = P.product_id.
+ 
+ 
