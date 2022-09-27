@@ -52,11 +52,28 @@ insert into seat values (5,'James');
 ```
 
 ```sql
-select (case when id = 5 then id
-when mod(id,2) = 0 then id-1
-when mod(id,2) = 1 then id+1
-else null end) as id
-,student
-from seat
+select (case when mod(c.id_count,2) = 1 then 
+(case when s.id=c.id_count then s.id
+when mod(s.id,2) = 0 then s.id-1
+when mod(s.id,2) = 1 then s.id+1
+else null end) 
+else
+(case when mod(s.id,2) = 0 then s.id-1
+when mod(s.id,2) = 1 then s.id+1
+else null end) end) as id
+,s.student
+from seat as s, (select count(id) as id_count from seat) as c
 order by id
 ```
+
+3
+
+```sql
+select *, 
+rank() over (order by score_avg desc) as rank1,
+dense_rank() over (order by score_avg desc) as rank2,
+row_number() over (order by score_avg desc) as rank3
+from score
+```
+
+
