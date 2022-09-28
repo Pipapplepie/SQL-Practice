@@ -77,6 +77,15 @@ dense_rank() over (order by score_avg desc) as rank2,
 row_number() over (order by score_avg desc) as rank3
 from score
 ```
+4
+
+```sql
+select num1 as ConsecutiveNums
+from (select l1.id, l1.num as num1, l2.num as num2, l3.num as num3
+from logs l1 left outer join logs l2 on l1.id + 1 = l2.id
+left outer join logs l3 on l1.id + 2 = l3.id) s
+where num1 = num2 and num1 = num3
+```
 
 5
 
@@ -193,9 +202,11 @@ a. 2 dates; b. one anchor: C
 
 <img src='https://user-images.githubusercontent.com/107236740/192738741-b2d68e86-5c85-4bae-9c1c-19c6ea7fb70b.png' width='450'>
 
-4
+4 
 
-5
+5 A(atomacity) C(consistency) I(isolation) D(duribility)
+
+_参考博客：https://blog.csdn.net/Michaelia_hu/article/details/75339924_
 
 # Section C
 
