@@ -162,6 +162,23 @@ from exam
 group by name
 ```
 
+2
+
+```sql
+select *
+from (select name, 'chinese' as subject, chinese
+from score1
+union
+select name, 'math' as subject, math
+from score1
+union
+select name, 'english' as subject, english
+from score1) s
+order by name
+```
+
+* 想了很久，最后上网查了，想起了第四章中的**隐式数据类型转换**。
+
 3
 
 ```sql
@@ -175,3 +192,21 @@ where ratio >= 0.9
 a. 2 dates; b. one anchor: C
 
 <img src='https://user-images.githubusercontent.com/107236740/192738741-b2d68e86-5c85-4bae-9c1c-19c6ea7fb70b.png' width='450'>
+
+4
+
+5
+
+# Section C
+
+1
+
+```sql
+select cdate, 
+count(case when result = '胜' then result end) as 胜,
+count(case when result = '负' then result end) as 负
+from competition
+group by cdate
+```
+
+2
