@@ -108,6 +108,8 @@ group by managerid
 having count(id) >= 5)
 ```
 
+--> John
+
 7
 
 ```sql
@@ -118,6 +120,8 @@ from survey_log
 group by question_id
 ```
 
+<img src='https://user-images.githubusercontent.com/107236740/192794757-c3aaddce-1df2-4a99-8102-1d5cef7ab60d.png' width='300'>
+
 8
 
 ```sql
@@ -127,12 +131,16 @@ row_number() over (partition by e.departmentid
 from new_employee e inner join department d on (e.departmentid = d.id)
 ```
 
+<img src='https://user-images.githubusercontent.com/107236740/192794863-1d500c74-4623-406b-9c41-f1f2ceb36471.png' width='450'>
+
 9
 
 ```sql
 select min(round(sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)),2)) as distance
 from point_2d as p1 inner join point_2d as p2 on (p1.x, p1.y) != (p2.x, p2.y)
 ```
+
+<img src='https://user-images.githubusercontent.com/107236740/192794973-9b9e4a6a-551e-40ed-b5c0-0b2243f5d813.png' width='300'>
 
 * **ROUND(x,y)**: x-the number to be rounded; y-the number of decimal digits.
 * **inner join** on inequality.
