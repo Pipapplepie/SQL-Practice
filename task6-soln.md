@@ -126,3 +126,23 @@ from point_2d as p1 inner join point_2d as p2 on (p1.x, p1.y) != (p2.x, p2.y)
 * **ROUND(x,y)**: x-the number to be rounded; y-the number of decimal digits.
 * **inner join** on inequality.
 
+10
+
+```sql
+select t.request_at as date,
+sum(case when status != 'completed' then 1 else 0 end)/count(status) as cancellation_rate
+
+from trips as t 
+inner join users as u1
+on t.client_id = u1.users_id
+inner join users as u2
+on t.driver_id = u2.users_id
+
+where u1.banned = 'No' and u2.banned = 'No'
+
+group by t.request_at
+```
+
+![c](https://user-images.githubusercontent.com/107236740/192719207-57408540-eb54-49ff-9cdf-01e0f7248bb5.png)
+
+<img src='https://user-images.githubusercontent.com/107236740/192719315-a889c2a9-66f9-4086-9f71-eecbc60c53e5.png' width='450'>
