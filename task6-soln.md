@@ -1,3 +1,5 @@
+# Section A
+
 1
 
 ```sql
@@ -146,3 +148,30 @@ group by t.request_at
 ![c](https://user-images.githubusercontent.com/107236740/192719207-57408540-eb54-49ff-9cdf-01e0f7248bb5.png)
 
 <img src='https://user-images.githubusercontent.com/107236740/192719315-a889c2a9-66f9-4086-9f71-eecbc60c53e5.png' width='450'>
+
+# Section B
+
+1
+
+```sql
+select name,
+sum(case when subject = 'chinese' then score end) as chinese,
+sum(case when subject = 'math' then score end) as math,
+sum(case when subject = 'english' then score end) as english
+from exam
+group by name
+```
+
+3
+
+```sql
+select anchor_name, date
+from
+(select anchor_name, date, sales/(sum(sales) over (partition by date)) as ratio
+from anchor_sales) as new_anchor
+where ratio >= 0.9
+```
+
+a. 2 dates; b. one anchor: C
+
+<img src='https://user-images.githubusercontent.com/107236740/192738741-b2d68e86-5c85-4bae-9c1c-19c6ea7fb70b.png' width='450'>
