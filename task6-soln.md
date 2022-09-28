@@ -115,3 +115,14 @@ row_number() over (partition by e.departmentid
 											order by e.salary desc) as ranking
 from new_employee e inner join department d on (e.departmentid = d.id)
 ```
+
+9
+
+```sql
+select min(round(sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y)),2)) as distance
+from point_2d as p1 inner join point_2d as p2 on (p1.x, p1.y) != (p2.x, p2.y)
+```
+
+* **ROUND(x,y)**: x-the number to be rounded; y-the number of decimal digits.
+* **inner join** on inequality.
+
