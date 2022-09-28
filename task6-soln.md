@@ -77,6 +77,7 @@ dense_rank() over (order by score_avg desc) as rank2,
 row_number() over (order by score_avg desc) as rank3
 from score
 ```
+
 4
 
 ```sql
@@ -87,6 +88,8 @@ left outer join logs l3 on l1.id + 2 = l3.id) s
 where num1 = num2 and num1 = num3
 ```
 
+--> 1
+
 5
 
 ```sql
@@ -95,6 +98,7 @@ when id in (select p_id from tree) then 'Inner'
 else 'Leaf' end) as Type
 from tree
 ```
+<img src='https://user-images.githubusercontent.com/107236740/192799456-c9852b40-2622-4b2f-9b65-d53c2be5ba9e.png' width='250'>
 
 6
 
@@ -229,3 +233,5 @@ group by cdate
 ```
 
 2
+
+有一种强烈的需要借助procedure 和 while loop的直觉……
