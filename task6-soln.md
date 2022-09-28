@@ -84,3 +84,34 @@ when id in (select p_id from tree) then 'Inner'
 else 'Leaf' end) as Type
 from tree
 ```
+
+6
+
+```sql
+select name
+from employee
+where id in 
+(select managerid
+from employee
+group by managerid
+having count(id) >= 5)
+```
+
+7
+
+```sql
+select question_id,
+sum((case when action = 'show' then 1 else 0 end))/sum((case when action = 'answer' then 1 else 0 end))
+as ratio
+from survey_log
+group by question_id
+```
+
+8
+
+```sql
+select d.name as department, e.name as employee, e.salary,
+row_number() over (partition by e.departmentid 
+											order by e.salary desc) as ranking
+from new_employee e inner join department d on (e.departmentid = d.id)
+```
