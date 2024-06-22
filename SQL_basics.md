@@ -53,6 +53,10 @@ WHERE order_price BETWEEN 100 AND 500
 
 ## ORDER BY
 
+## GROUP BY
+
+### HAVING
+
 ## Aggregate Functions (AVG, SUM, COUNT, ...)
 
 ## JOIN
@@ -67,3 +71,4 @@ WHERE c.cust_id = o.cust_id
 
 However, JOIN allows more complex 'connections'.
 
+## UNION
