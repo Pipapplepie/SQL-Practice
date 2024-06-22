@@ -1,0 +1,7 @@
+## 1 SELECT... FROM...
+
+## 2 WHERE
+
+## ORDER BY
+
+## (AND, OR, BETWEEN...) LOGIC OPERATORS
