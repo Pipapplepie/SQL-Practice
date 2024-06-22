@@ -1,3 +1,5 @@
+# Call A Table
+
 ## SELECT... FROM...
 
 select cust_id from table Customers:
@@ -10,6 +12,12 @@ select all columns from table Customers using *:
 ```sql
 SELECT *
 FROM Customers
+```
+
+select DISTINCT values:
+```sql
+SELECT DISTINCT prod_name
+FROM Products
 ```
 
 ### ... AS...
@@ -39,7 +47,7 @@ FROM Customers
 WHERE order_price >= 100
 ```
 
-### (AND, OR, BETWEEN...) LOGIC OPERATORS
+### LOGIC OPERATORS (AND, OR, BETWEEN...)
 
 when order_price is no less than 100 and no greater than 500:
 ```sql
@@ -55,7 +63,8 @@ FROM Customers
 WHERE order_price BETWEEN 100 AND 500
 ```
 
-If the condition is about strings:
+### String Conditions
+
 ```sql
 SELECT vend_name
 FROM Vendors
@@ -117,7 +126,7 @@ NOT is another logic operator. It means the opposite of what you specified. It r
 
 Here, the result prod_desc won't contain 'toy'.
 
-### (UPPER, CONCAC, SUBSTRING...) Other STRING OPERATIONS
+### Other STRING OPERATIONS (UPPER, CONCAC, SUBSTRING...)
 ```sql
 SELECT cust_id, cust_name, 
        upper(concat(substring(cust_contact,1,2), substring(cust_city,1,3))) as user_login
@@ -155,12 +164,35 @@ SELECT sum(quantity) as items_ordered
 FROM OrderItems
 WHERE prod_id = 'BR01'
 ```
+It returns the sum of ordered quantity of product 'BR01'.
 
 ## GROUP BY
-Aggregate functions are almost always used with GROUP BY clause;
-
+Aggregate functions are often used with GROUP BY clause;
+```sql
+SELECT order_num, count(*) as order_lines
+FROM OrderItems
+GROUP BY order_num
+ORDER BY order_lines
+```
 
 ### HAVING
+HAVING is ALWAYS used after GROUP BY! 
+```sql
+SELECT order_num
+FROM OrderItems
+GROUP BY order_num
+HAVING sum(quantity) >= 100
+```
+HAVING clause almost always uses some aggregate functions. 
+
+(bcz otherwise, why not just use WHERE clause?)
+
+# Build A Table
+
+There are two ways to build a table;
+
+- CREATE a table from scratch; (specify all the column names, values by yourself)
+- Bind several tables together in a certain way so that you have a bigger table;
 
 ## JOIN
 
@@ -168,10 +200,52 @@ Aggregate functions are almost always used with GROUP BY clause;
 There is a simpler, intuitive way to 'connect' two tables; that is to use a mutual column as the index. (等联结) To do this, Just use the equal sign (=) to bind the mutual columns in two tables.
 ```sql
 SELECT c.cust_id, o.order_num
-FROM Customers c, Orders o
+FROM Customers AS c, Orders AS o
 WHERE c.cust_id = o.cust_id
+```
+You can omit the 'AS' before the rename; i.e.,
+```sql
+FROM Customers AS c, Orders AS o
+```
+is the same as
+```sql
+FROM Customers c, Orders o
+```
+
+### Even Simpler
+Sometimes you can get what you want without binding the table;
+```sql
+SELECT cust_id, order_date
+FROM Orders
+WHERE order_num in (SELECT order_num FROM OrderItems WHERE prod_id = 'BR01')
+ORDER BY order_date
 ```
 
 However, JOIN allows more complex 'connections'.
+```sql
+SELECT cust_id, order_date
+FROM Orders o JOIN OrderItems oi ON o.order_num = oi.order_num
+WHERE oi.prod_id = 'BR01'
+ORDER BY o.order_date
+```
+This works just the same with the last code.
+
+Join more than two tables;
+```sql
+SELECT cust_email
+FROM (Orders AS o JOIN OrderItems AS oi JOIN Customers AS c
+ON o.order_num = oi.order_num AND o.cust_id = c.cust_id)
+WHERE oi.prod_id = 'BR01'
+```
+
+Analyze below;
+```sql
+SELECT cust_email, SUM(item_price*quantity) total_ordered
+FROM (Orders o LEFT JOIN OrderItems oi ON o.order_num = oi.order_num)
+GROUP BY cust_id
+ORDER BY total_ordered DESC
+```
+
+### INNER JOIN, LEFT JOIN, RIGHT JOIN, OUTER JOIN (FULL JOIN)
 
 ## UNION
