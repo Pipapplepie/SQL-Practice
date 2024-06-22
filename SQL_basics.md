@@ -1,7 +1,9 @@
-## 1 SELECT... FROM...
+## SELECT... FROM...
 
-## 2 WHERE
+## WHERE
+
+### (AND, OR, BETWEEN...) LOGIC OPERATORS
+
+### LIKE
 
 ## ORDER BY
-
-## (AND, OR, BETWEEN...) LOGIC OPERATORS
