@@ -40,18 +40,57 @@ FROM Customers
 WHERE order_price >= 100 AND order_price <= 500
 ```
 
+Same as;
 ```sql
 SELECT *
 FROM Customers
 WHERE order_price BETWEEN 100 AND 500
 ```
-### (UPPER, CONCAC, SUBSTRING...) STRING OPERATIONS
 
-### Other functions (time)
+If the condition is about some strings:
+```sql
+SELECT vend_name
+FROM Vendors
+WHERE vend_country = "USA" and vend_state = "CA"
+```
+
+Another way to mean OR: **in() function**
+```sql
+SELECT order_num, prod_id, quantity
+FROM OrderItems
+WHERE prod_id in('BR01','BR02','BR03')
+```
 
 ### LIKE
 
+Want our string to contain some specific words; (or any string segments)
+```sql
+SELECT order_num, prod_desc
+FROM Products
+WHERE prod_desc LIKE '%toy%'
+```
+Such that return with results whose prod_desc contains 'toy'.
+
+You can see % as a **place holder** for other string segments, that is;
+
+%toy% allows all strings containing 'toy';
+
+%toy only allows strings ending with 'toy'; (no string segments allowed after 'toy')
+
+toy% only allows strings starting with 'toy'; (no string segments allowed before 'toy')
+
+### (UPPER, CONCAC, SUBSTRING...) Other STRING OPERATIONS
+
+### Other functions (time)
+
 ## ORDER BY
+
+Order the returning table according to chosen index columns. (Specify ASC, DESC. ASC by default.)
+```sql
+SELECT cust_id, order_num
+FROM Orders
+ORDER BY cust_id, order_date desc;
+```
 
 ## GROUP BY
 
