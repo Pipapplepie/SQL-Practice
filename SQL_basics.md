@@ -1,5 +1,17 @@
 ## SELECT... FROM...
 
+select cust_id from table Customers:
+```sql
+SELECT cust_id
+FROM Customers
+```
+
+select all columns from table Customers using *:
+```sql
+SELECT *
+FROM Customers
+```
+
 ### ... AS...
 
 ## WHERE
@@ -15,3 +27,6 @@
 ## ORDER BY
 
 ## Aggregate Functions (AVG, SUM, COUNT, ...)
+
+## JOIN
+
