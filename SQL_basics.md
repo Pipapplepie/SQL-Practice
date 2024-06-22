@@ -57,3 +57,8 @@ WHERE order_price BETWEEN 100 AND 500
 
 ## JOIN
 
+### Before Join
+There is a simpler, intuitive way to 'connect' two tables; that is to use a mutual column as the index.
+
+However, JOIN allows more complex 'connections'.
+
