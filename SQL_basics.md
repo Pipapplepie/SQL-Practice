@@ -14,7 +14,7 @@ FROM Customers
 
 ### ... AS...
 
-select column_A as c_A to rename a column in your returning table:
+use AS to rename a column in your returning table:
 ```sql
 SELECT cust_id, cust_orders AS orders
 FROM Customers
@@ -22,8 +22,29 @@ FROM Customers
 
 ## WHERE
 
+WHERE is the most important clause in SQL. It enables you to return a table based on your given conditions.
+
+return results in table only when order_price is greater than or equal to 100:
+```sql
+SELECT *
+FROM Customers
+WHERE order_price >= 100
+```
+
 ### (AND, OR, BETWEEN...) LOGIC OPERATORS
 
+when order_price is no less than 100 and no greater than 500:
+```sql
+SELECT *
+FROM Customers
+WHERE order_price >= 100 AND order_price <= 500
+```
+
+```sql
+SELECT *
+FROM Customers
+WHERE order_price BETWEEN 100 AND 500
+```
 ### (UPPER, CONCAC, SUBSTRING...) STRING OPERATIONS
 
 ### Other functions (time)
