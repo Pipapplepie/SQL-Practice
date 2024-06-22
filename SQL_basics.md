@@ -58,7 +58,12 @@ WHERE order_price BETWEEN 100 AND 500
 ## JOIN
 
 ### Before Join
-There is a simpler, intuitive way to 'connect' two tables; that is to use a mutual column as the index.
+There is a simpler, intuitive way to 'connect' two tables; that is to use a mutual column as the index. (等联结) To do this, Just use the equal sign (=) to bind the mutual columns in two tables.
+```sql
+SELECT c.cust_id, o.order_num
+FROM Customers c, Orders o
+WHERE c.cust_id = o.cust_id
+```
 
 However, JOIN allows more complex 'connections'.
 
