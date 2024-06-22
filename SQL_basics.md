@@ -14,6 +14,12 @@ FROM Customers
 
 ### ... AS...
 
+select column_A as c_A to rename a column in your returning table:
+```sql
+SELECT cust_id, cust_orders AS orders
+FROM Customers
+```
+
 ## WHERE
 
 ### (AND, OR, BETWEEN...) LOGIC OPERATORS
